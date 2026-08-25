@@ -1,0 +1,170 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% block content %}
+
+        <div class="w-full flex flex-col py-30 px-25 min-h-screen items-center gap-20">
+
+            <div class="flex flex-col gap-7">
+                <h1 class="font-['Unbounded'] font-bold text-6xl md:text-[84px] uppercase text-[#FFFAF4]">
+                    <span class="text-[#DDF918]">.</span>Write<span class="text-[#DDF918]">.</span>
+                </h1>
+                <h1 class="font-['Unbounded'] font-bold text-6xl md:text-[84px] uppercase text-[#FFFAF4] pl-10">
+                    <span class="text-[#DDF918]">.</span>Share<span class="text-[#DDF918]">.</span>
+                </h1>
+                <h1 class="font-['Unbounded'] font-bold text-6xl md:text-[84px] uppercase text-[#FFFAF4]">
+                    <span class="text-[#DDF918]">.</span>Read<span class="text-[#DDF918]">.</span>
+                </h1>
+            </div>
+
+
+            <div class="flex items-center gap-4">
+                <p class="mt-10 max-w-120 font-['Inter'] text-lg leading-8 text-[#F8F1EA]">
+                    A place for ideas, stories and different perspectives.
+                    Write your thoughts, share your stories and discover something new.
+                </p>
+
+                <div class="flex items-center gap-5 mt-5">
+
+                    <a
+                        href="{% url 'article' %}"
+                        class="px-8 py-4 rounded-xl bg-[#DDF918] border-2 border-[#FFFAF4] font-['Unbounded'] font-bold text-sm text-[#101010] transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0_#FFFAF4]"
+                    >
+                        Explore Articles
+                    </a>
+                    {%if request.user.is_authenticated%}
+                    <a
+                        href="{% url 'article-create' %}"
+                        class="px-8 py-4 rounded-xl border-2 border-[#FFFAF4] font-['Unbounded'] font-bold text-sm text-[#FFFAF4] transition-all duration-300 hover:bg-[#FFFAF4] hover:text-[#101010]"
+                    >
+                        Start Writing
+                    </a>
+                    {%else%}
+                    <a
+                        href="{% url 'login' %}"
+                        class="px-8 py-4 rounded-xl border-2 border-[#FFFAF4] font-['Unbounded'] font-bold text-sm text-[#FFFAF4] transition-all duration-300 hover:bg-[#FFFAF4] hover:text-[#101010]"
+                    >
+                        Start Writing
+                    </a>
+                    {%endif%}
+
+                </div>
+            </div>
+
+
+            <div class="flex flex-col mt-20  gap-10 border-[0.2px] border-[#FFFAF4] rounded-3xl p-10">
+                <span class="font-['Inter'] text-5xl  uppercase tracking-[0.15em] text-[#DDF918]">
+                        Last Articles
+                </span>
+
+                <div class="grid grid-cols-2 gap-10 ">
+                    {% for article in articles %}
+
+                        <a
+                            href="{% url 'article_detail' article.pk %}"
+                            class="group relative min-h-70 max-w-150 p-8 rounded-3xl bg-[#FFFAF4] flex flex-col justify-between overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-[10px_10px_0_#DDF918]"
+                        >
+
+
+                            <div class="flex items-center justify-between">
+
+                                <span class="font-['Inter'] text-sm font-medium text-[#555555]">
+                                    {{ article.id }}
+                                </span>
+
+                                <span class="font-['Inter'] text-sm text-[#555555] transition-transform duration-500 group-hover:translate-x-2">
+                                    →
+                                </span>
+
+                            </div>
+
+
+
+                            <div>
+
+                                <div class="flex flex-col justify-center gap-1.5">
+                                    <h2 class="font-['Unbounded'] font-bold text-3xl md:text-4xl uppercase leading-tight text-[#101010] transition-transform duration-500 group-hover:translate-x-2">
+                                        {{ article.title }}
+                                    </h2>
+                                    <p class="font-['Inter'] text-base leading-7 text-[#888888] max-w-120 transition-transform duration-500 group-hover:translate-x-2">Author: {{article.author}}</p>
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="absolute bottom-0 left-0 w-full h-1 bg-[#101010] origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100">
+                            </div>
+
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-10 mt-25">
+                <div class="grid grid-cols-[1fr_1fr] items-center gap-25">
+                    <div class="flex justify-center">
+                        <img
+                            src="{% static 'app/images/01.svg' %}"
+                            alt="01"
+                            class="w-full max-w-100"
+                        >
+                    </div>
+
+                    <div class="flex flex-col justify-center gap-3">
+                        <h2 class="font-['Unbounded'] font-bold text-3xl uppercase text-[#FFFAF4]">
+                            YOUR VOICE MATTERS
+                        </h2>
+
+                        <p class="font-['Inter'] text-base leading-7 text-[#B8B8B8] max-w-120">
+                            Everyone has something worth saying. Write about your ideas,
+                            experiences and perspectives — and give them a place to exist.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-[1fr_1fr] items-center gap-25">
+                    <div class="flex flex-col justify-center gap-3">
+                        <h2 class="font-['Unbounded'] font-bold text-3xl uppercase text-[#FFFAF4]">
+                            DISCOVER NEW PERSPECTIVES
+                        </h2>
+
+                        <p class="font-['Inter'] text-base leading-7 text-[#B8B8B8] max-w-120">
+                            Read what others have to say, explore different ideas
+                            and see the world from another point of view.
+                        </p>
+                    </div>
+
+                    <div class="flex justify-center">
+                        <img
+                            src="{% static 'app/images/02.svg' %}"
+                            alt="02"
+                            class="w-full max-w-100"
+                        >
+                    </div>
+                </div>
+            </div>
+
+
+
+    </div>
+
+<div class="w-full overflow-hidden mb-25 py-8 bg-[#FFFAF4]">
+
+    <div class="flex w-max animate-marquee">
+
+        <div class="shrink-0 flex">
+            <span class="mx-10 font-['Unbounded'] font-bold text-3xl text-[#101010]">
+                WRITE • SHARE • READ • THINK • CREATE • DISCOVER •
+            </span>
+        </div>
+
+        <div class="shrink-0 flex">
+            <span class="mx-10 font-['Unbounded'] font-bold text-3xl text-[#101010]">
+                WRITE • SHARE • READ • THINK • CREATE • DISCOVER •
+            </span>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

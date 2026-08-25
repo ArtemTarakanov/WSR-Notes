@@ -1,0 +1,53 @@
+<svg
+  width="64"
+  height="64"
+  viewBox="0 0 512 512"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <!-- Letter A -->
+  <path
+    d="M72 432L181 80H229L338 432H282L258 348H152L128 432H72ZM167 294H243L205 160L167 294Z"
+    fill="#231F20"
+  />
+
+  <!-- Document -->
+  <path
+    d="M221 80H337L408 151V432H221V80Z"
+    fill="#231F20"
+  />
+
+  <!-- Folded corner -->
+  <path
+    d="M337 80V151H408L337 80Z"
+    fill="#DDF918"
+  />
+
+  <!-- Text lines -->
+  <rect
+    x="268"
+    y="211"
+    width="94"
+    height="18"
+    rx="9"
+    fill="#DDF918"
+  />
+
+  <rect
+    x="268"
+    y="253"
+    width="94"
+    height="18"
+    rx="9"
+    fill="#DDF918"
+  />
+
+  <rect
+    x="268"
+    y="295"
+    width="70"
+    height="18"
+    rx="9"
+    fill="#DDF918"
+  />
+</svg>

@@ -1,0 +1,41 @@
+{% extends "app/base.html" %}
+
+{% block content %}
+        <a href="{% url 'article' %}" class="fixed top-40 left-8 text-white flex items-center justify-center rounded-full transition-all duration-300 p-2 hover:bg-[#DDF918] hover:text-black transition-all duration-300 hover:-translate-y-[0.5px]">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg>
+        </a>
+        <div class="w-full flex flex-col gap-15 items-center justify-center px-25 min-h-10/12">
+            <div class="flex items-center justify-center w-full gap-100">
+                <h1 class="font-['Unbounded'] font-bold text-5xl uppercase text-[#FFFAF4]">{{article.title}}</h1>
+
+                <div class="flex flex-col gap-1.5">
+                <p class="font-['Inter'] text-base leading-7 text-[#F8F1EA] max-w-120 transition-transform duration-500 group-hover:translate-x-2">
+                    Author: {{article.author}}
+                </p>
+                <p class="border-t border-t-gray-500 pt-2  font-['Inter'] font-normal text-base leading-7 text-[#F8F1EA] ">
+                    {{ article.text }}
+                </p>
+                </div>
+            </div>
+
+            {% if request.user == article.author %}
+            <div class="flex items-center gap-5">
+                <a
+                    href="{% url 'article-update' article.pk %}"
+                    class="min-w-40 flex justify-center items-center text-center mt-2 px-6 py-4 rounded-xl bg-[#DDF918] border-2 border-[#FFFAF4] font-['Unbounded'] font-bold text-lg text-[#101010] transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0_#FFFAF4]"
+                >
+                    Edit
+                </a>
+
+                <a
+                    href="{% url 'article-delete' article.pk %}"
+                    class="min-w-40 flex justify-center items-center text-center mt-2 px-6 py-4 rounded-xl bg-[#DDF918] border-2 border-[#FFFAF4] font-['Unbounded'] font-bold text-lg text-[#101010] transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0_#ff0000]"
+                >
+                    Delete
+                </a>
+            </div>
+            {%endif%}
+        </div>
+
+
+{% endblock %}
