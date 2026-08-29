@@ -7,8 +7,16 @@ class Article(models.Model):
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        null = True
     )
 
     def __str__(self) -> str:
         return self.title
+
+class Profile(models.Model):
+    user = models.OneToOneField(
+        User,
+        related_name="profile",
+        on_delete=models.CASCADE
+    )
+    bio = models.TextField(max_length=250, blank=True)
+    avatar = models.ImageField(upload_to="avatars/", null=True)

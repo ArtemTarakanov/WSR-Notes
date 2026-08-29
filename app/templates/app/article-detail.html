@@ -18,7 +18,7 @@
                 </div>
             </div>
 
-            {% if request.user == article.author %}
+            {% if request.user == article.author or can_change_article or can_delete_article %}
             <div class="flex items-center gap-5">
                 <a
                     href="{% url 'article-update' article.pk %}"

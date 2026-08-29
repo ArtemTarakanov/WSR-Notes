@@ -1,6 +1,6 @@
 
 from django import forms
-from .models import Article
+from .models import Article, Profile
 from django.contrib.auth.models import User
 
 class ArticleForm(forms.ModelForm):
@@ -190,3 +190,63 @@ class LoginForm(forms.Form):
                                    }
                                )
                                )
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ["avatar", "bio"]
+
+        widgets = {
+            "avatar": forms.ClearableFileInput(
+                attrs={
+                    "id": "id_avatar",
+                    "accept": "image/*",
+                    "class": "hidden",
+                }
+            ),
+
+            "bio": forms.Textarea(
+                attrs={
+                    "class": (
+                        "w-full px-4 py-3 "
+                        "bg-white "
+                        "border-2 border-[#101010] "
+                        "rounded-xl "
+                        "font-['Inter'] "
+                        "text-[#101010] "
+                        "outline-none "
+                        "min-h-40 "
+                        "resize-y "
+                        "transition-all duration-300 "
+                        "focus:border-[#DDF918] "
+                        "focus:ring-2 focus:ring-[#DDF918]"
+                    ),
+                    "placeholder": "Tell something about yourself...",
+                }
+            ),
+        }
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ["username"]
+        widgets = {
+            "username": forms.TextInput(
+                attrs={
+                    "class": (
+                    "w-full px-4 py-3 "
+                    "bg-white "
+                    "border-2 border-[#101010] "
+                    "rounded-xl "
+                    "font-['Inter'] "
+                    "text-[#101010] "
+                    "outline-none "
+                    "transition-all duration-300 "
+                    "focus:border-[#DDF918] "
+                    "focus:ring-2 focus:ring-[#DDF918]"
+                    ),
+                    "placeholder": "Enter username",
+
+                }
+            )
+        }

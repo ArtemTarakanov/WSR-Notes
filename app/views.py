@@ -1,14 +1,14 @@
+
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db import models
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
-from .models import Article
-from .forms import ArticleForm
-from .forms import RegistrationForm
+from .models import Article, Profile
+from .forms import ArticleForm, UserForm
+from .forms import RegistrationForm, ProfileForm
 from django.contrib.auth.models import User
 from .forms import LoginForm
 from django.contrib.auth import authenticate, login, logout
@@ -27,7 +27,6 @@ class HomeView(ListView):
 
         context["page_title"] = "Home"
         context["page_description"] = "Welcome to our website."
-
         return context
 
 
@@ -52,6 +51,17 @@ class ArticleDetailView(DetailView):
     model = Article
     template_name = "app/article-detail.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context["can_change_article"]=(
+            self.request.user.has_perm("app.change_article")
+        )
+        context["can_delete_article"]=(
+            self.request.user.has_perm("app.delete_article")
+        )
+        return context
+
 class ArticleCreate(LoginRequiredMixin, CreateView):
 
     model = Article
@@ -65,9 +75,6 @@ class ArticleCreate(LoginRequiredMixin, CreateView):
         article.save()
         return super().form_valid(form)
 
-
-
-
 class ArticleUpdate(LoginRequiredMixin, UpdateView):
     model = Article
     form_class= ArticleForm
@@ -75,7 +82,10 @@ class ArticleUpdate(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("article")
 
     def get_queryset(self):
+        if self.request.user.has_perm("app.change_article"):
+            return Article.objects.all()
         return Article.objects.filter(author = self.request.user)
+
 
 class ArticleDelete(LoginRequiredMixin, DeleteView):
     model = Article
@@ -83,6 +93,8 @@ class ArticleDelete(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("article")
 
     def get_queryset(self):
+        if self.request.user.has_perm("app.delete_article"):
+            return Article.objects.all()
         return Article.objects.filter(author = self.request.user)
 
 class Registration(View):
@@ -158,3 +170,58 @@ class LogoutView(View):
     def get(self, request):
         logout(request)
         return redirect("/")
+
+class ProfileView(LoginRequiredMixin, DetailView):
+    model = Profile
+    template_name = "app/profile.html"
+
+    def get_object(self):
+        return self.request.user.profile
+
+class ProfileUpdateView(LoginRequiredMixin, View):
+    template_name = "app/profile-edit.html"
+    success_url = reverse_lazy("profile")
+
+    def get(self, request):
+        profile = request.user.profile
+
+        profile_form = ProfileForm(instance=profile)
+        user_form = UserForm(instance=request.user)
+
+        return render(
+            request,
+            self.template_name,
+            {
+                "form": profile_form,
+                "user_form": user_form,
+            }
+        )
+
+    def post(self, request):
+        profile = request.user.profile
+
+        profile_form = ProfileForm(
+            request.POST,
+            request.FILES,
+            instance=profile
+        )
+
+        user_form = UserForm(
+            request.POST,
+            instance=request.user
+        )
+
+        if profile_form.is_valid() and user_form.is_valid():
+            profile_form.save()
+            user_form.save()
+
+            return redirect(self.success_url)
+
+        return render(
+            request,
+            self.template_name,
+            {
+                "form": profile_form,
+                "user_form": user_form,
+            }
+        )

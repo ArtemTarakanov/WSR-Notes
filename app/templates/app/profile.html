@@ -1,0 +1,113 @@
+{% extends "app/base.html" %}
+
+{% block content %}
+
+<div class="w-full min-h-10/12 px-6 md:px-15 lg:px-25 py-20">
+
+    <div class="w-full max-w-400 mx-auto">
+
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-10">
+
+            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-8">
+
+                <div class="shrink-0">
+                    {% if request.user.profile.avatar %}
+                        <img
+                            src="{{ request.user.profile.avatar.url }}"
+                            alt="{{ request.user.username }}"
+                            class="w-40 h-40 md:w-52 md:h-52 object-cover rounded-full border-4 border-[#FFFAF4] "
+                        >
+                    {% else %}
+                        <div
+                            class="w-40 h-40 md:w-52 md:h-52 flex items-center justify-center rounded-full bg-[#DDF918] border-4 border-[#FFFAF4] "
+                        >
+                            <span class="font-['Unbounded'] font-bold text-5xl text-[#101010]">
+                                {{ request.user.username|first|upper }}
+                            </span>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="flex flex-col gap-4">
+
+                    <span class="font-['Inter'] text-sm uppercase tracking-[0.2em] text-[#DDF918]">
+                        {{ request.user.email }}
+                    </span>
+
+                    <h1 class="font-['Unbounded'] font-bold text-4xl md:text-6xl uppercase text-[#FFFAF4]">
+                        {{ request.user.username }}
+                    </h1>
+
+                    {% if request.user.profile.bio %}
+                        <p class="font-['Inter'] text-base leading-7 text-[#B8B8B8] max-w-150">
+                            {{ request.user.profile.bio }}
+                        </p>
+                    {% else %}
+                        <p class="font-['Inter'] text-base text-[#666666] italic">
+                            No bio yet.
+                        </p>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            <div class="flex items-center gap-4">
+
+                <a
+                    href="{% url 'profile-edit' %}"
+                    class="min-w-40 flex justify-center items-center px-6 py-4 rounded-xl bg-[#DDF918] border-2 border-[#FFFAF4] font-['Unbounded'] font-bold text-base text-[#101010] transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0_#FFFAF4]"
+                >
+                    Edit Profile
+                </a>
+
+                <a
+                    href="{% url 'logout' %}"
+                    class="min-w-32 flex justify-center items-center px-6 py-4 rounded-xl border-2 border-[#555555] font-['Unbounded'] font-bold text-base text-[#FFFAF4] transition-all duration-300 hover:-translate-y-1 hover:border-[#DDF918] hover:text-[#DDF918]"
+                >
+                    Logout
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="w-full border-t border-[#333333] my-16"></div>
+
+        <div class="p-6 rounded-2xl border border-[#333333] bg-[#151515]">
+
+            <p class="font-['Inter'] text-xl uppercase tracking-wider text-[#777777]">
+                Articles
+            </p>
+
+            <div class="mt-5 flex flex-col gap-3">
+
+                {% for article in request.user.article_set.all %}
+
+                    <a
+                        href="{% url 'article_detail' article.pk %}"
+                        class="w-fit group flex items-center justify-between py-3 px-4 rounded-xl border border-[#333333] transition-all duration-300 hover:border-[#DDF918] hover:bg-[#1D1D1D]"
+                    >
+                        <span class="font-['Inter'] text-base text-[#FFFAF4]">
+                            {{ article.title }}
+                        </span>
+
+                    </a>
+
+                {% empty %}
+
+                    <p class="font-['Inter'] text-sm text-[#777777]">
+                        You haven't published any articles yet.
+                    </p>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
