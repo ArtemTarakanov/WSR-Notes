@@ -175,8 +175,7 @@ class ProfileView(LoginRequiredMixin, DetailView):
     model = Profile
     template_name = "app/profile.html"
 
-    def get_object(self):
-        return self.request.user.profile
+
 
 class ProfileUpdateView(LoginRequiredMixin, View):
     template_name = "app/profile-edit.html"
@@ -225,3 +224,11 @@ class ProfileUpdateView(LoginRequiredMixin, View):
                 "user_form": user_form,
             }
         )
+
+class UserDelete(LoginRequiredMixin, DeleteView):
+    model = User
+    template_name = "app/user-delete.html"
+    success_url = reverse_lazy("home")
+
+    def get_object(self):
+        return self.request.user
