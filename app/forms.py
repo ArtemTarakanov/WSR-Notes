@@ -229,7 +229,7 @@ class ProfileForm(forms.ModelForm):
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ["username"]
+        fields = ["username", "email"]
         widgets = {
             "username": forms.TextInput(
                 attrs={
@@ -247,6 +247,23 @@ class UserForm(forms.ModelForm):
                     ),
                     "placeholder": "Enter username",
 
+                }
+            ),
+            "email": forms.EmailInput(
+                attrs={
+                    "class":(
+                        "w-full px-4 py-3 "
+                        "bg-white "
+                        "border-2 border-[#101010] "
+                        "rounded-xl "
+                        "font-['Inter'] "
+                        "text-[#101010] "
+                        "outline-none "
+                        "transition-all duration-300 "
+                        "focus:border-[#DDF918] "
+                        "focus:ring-2 focus:ring-[#DDF918]"
+                    ),
+                    "placeholder": "Enter email"
                 }
             )
         }

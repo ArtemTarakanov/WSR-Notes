@@ -1,26 +1,25 @@
-
 {% extends "app/base.html" %}
 
 {% block content %}
 
-<div class="w-full min-h-10/12 flex items-center justify-center px-6 py-20">
+<div class="w-full min-h-10/12 flex items-center justify-center px-4 md:px-6 py-10 md:py-20">
 
-    <div class="w-full max-w-150 bg-[#FFFAF4] rounded-3xl p-10 shadow-2xl">
+    <div class="w-full max-w-150 bg-[#FFFAF4] rounded-3xl p-6 md:p-10 shadow-2xl">
 
-        <div class="mb-10">
+        <div class="mb-8 md:mb-10">
 
             <span class="flex flex-col items-start gap-2">
 
                 <a
-                    href="{% url 'profile' %}"
+                    href="{% url 'profile' request.user.profile.pk %}"
                     class="flex items-center justify-center rounded-full transition-all duration-300 hover:bg-black/10"
                 >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
-                          <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5"/>
-                        </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5"/>
+                    </svg>
                 </a>
 
-                <h1 class="font-['Unbounded'] font-bold text-4xl uppercase text-[#101010]">
+                <h1 class="font-['Unbounded'] font-bold text-2xl md:text-4xl uppercase text-[#101010]">
                     Update Profile
                 </h1>
 
@@ -31,7 +30,6 @@
             </p>
 
         </div>
-
 
         <form
             method="POST"
@@ -47,7 +45,6 @@
                     Avatar
                 </label>
 
-
                 <div class="flex items-center gap-5">
 
                     <div class="shrink-0">
@@ -58,16 +55,16 @@
                                 id="avatar-preview"
                                 src="{{ request.user.profile.avatar.url }}"
                                 alt="{{ request.user.username }}"
-                                class="w-28 h-28 rounded-full object-cover border-2 border-[#101010]"
+                                class="w-24 h-24 md:w-28 md:h-28 rounded-full object-cover border-2 border-[#101010]"
                             >
 
                         {% else %}
 
                             <div
                                 id="avatar-placeholder"
-                                class="w-28 h-28 rounded-full bg-[#DDF918] border-2 border-[#101010] flex items-center justify-center"
+                                class="w-24 h-24 md:w-28 md:h-28 rounded-full bg-[#DDF918] border-2 border-[#101010] flex items-center justify-center"
                             >
-                                <span class="font-['Unbounded'] font-bold text-3xl text-[#101010]">
+                                <span class="font-['Unbounded'] font-bold text-2xl md:text-3xl text-[#101010]">
                                     {{ request.user.username|first|upper }}
                                 </span>
                             </div>
@@ -76,19 +73,18 @@
                                 id="avatar-preview"
                                 src=""
                                 alt="Avatar preview"
-                                class="hidden w-28 h-28 rounded-full object-cover border-2 border-[#101010]"
+                                class="hidden w-24 h-24 md:w-28 md:h-28 rounded-full object-cover border-2 border-[#101010]"
                             >
 
                         {% endif %}
 
                     </div>
 
-
                     <div class="flex flex-col gap-2">
 
                         <label
                             for="id_avatar"
-                            class="cursor-pointer inline-flex items-center justify-center px-5 py-3 rounded-xl bg-[#101010] text-[#FFFAF4] font-['Inter'] font-semibold transition-all duration-300 hover:bg-[#DDF918] hover:text-[#101010]"
+                            class="cursor-pointer inline-flex items-center justify-center px-4 md:px-5 py-3 rounded-xl bg-[#101010] text-[#FFFAF4] font-['Inter'] font-semibold transition-all duration-300 hover:bg-[#DDF918] hover:text-[#101010]"
                         >
                             Choose image
                         </label>
@@ -108,52 +104,55 @@
 
                 </div>
 
-
                 {% if form.avatar.errors %}
-
                     <div class="font-['Inter'] text-sm text-red-600">
                         {{ form.avatar.errors }}
                     </div>
-
                 {% endif %}
 
             </div>
 
             <div class="flex flex-col gap-2">
-
                 {{ form.bio.label_tag }}
-
                 {{ form.bio }}
-
                 {% if form.bio.errors %}
-
                     <div class="font-['Inter'] text-sm text-red-600">
                         {{ form.bio.errors }}
                     </div>
-
                 {% endif %}
-
             </div>
 
             <div class="flex flex-col gap-2">
-                {{user_form.username.label_tag}}
-                {{user_form.username}}
-                {% if user_form.username.errors %}
-                <div class="font-['Inter'] text-sm text-red-600">
-                    {{ user_form.username.errors }}
+                <div class="flex flex-col gap-2">
+                    {{user_form.username.label_tag}}
+                    {{user_form.username}}
+                    {% if user_form.username.errors %}
+                    <div class="font-['Inter'] text-sm text-red-600">
+                        {{ user_form.username.errors }}
+                    </div>
+                    {% endif %}
                 </div>
-                {% endif %}
+
+                <div class="flex flex-col gap-2">
+                    {{user_form.email.label_tag}}
+                    {{user_form.email}}
+                    {%if uwer_form.email.errors%}
+                    <div class="font-['Inter'] text-sm text-red-600">
+                        {{user_form.email.errors}}
+                    </div>
+                    {% endif %}
+                </div>
             </div>
 
-            <div class="flex flex-col items-center  justify-center ">
+            <div class="flex flex-col items-center justify-center">
                 <button
                     type="submit"
-                    class="w-full mt-2 px-6 py-4 rounded-xl bg-[#DDF918] border-2 border-[#101010] font-['Unbounded'] font-bold text-lg text-[#101010] transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0_#101010]"
+                    class="w-full mt-2 px-6 py-4 rounded-xl bg-[#DDF918] border-2 border-[#101010] font-['Unbounded'] font-bold text-base md:text-lg text-[#101010] transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0_#101010]"
                 >
                     Save
                 </button>
 
-                <a href="{% url 'user-delete' %}" class="w-[50%]  flex justify-center items-center text-center mt-2 px-6 py-4 rounded-xl bg-[#ff0000] border-2 border-[#101010] font-['Unbounded'] font-bold text-lg text-[#101010] transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0_#101010]">
+                <a href="{% url 'user-delete' %}" class="w-full sm:w-[50%] flex justify-center items-center text-center mt-2 px-6 py-4 rounded-xl bg-[#ff0000] border-2 border-[#101010] font-['Unbounded'] font-bold text-base md:text-lg text-[#101010] transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0_#101010]">
                     Delete Account
                 </a>
             </div>
@@ -164,16 +163,12 @@
 
 </div>
 
-
-<!-- Avatar preview -->
-
 <script>
 
     const avatarInput = document.getElementById("id_avatar");
     const avatarPreview = document.getElementById("avatar-preview");
     const avatarPlaceholder = document.getElementById("avatar-placeholder");
     const fileName = document.getElementById("file-name");
-
 
     avatarInput.addEventListener("change", function () {
 
@@ -183,28 +178,20 @@
             return;
         }
 
-
-
         fileName.textContent = file.name;
 
-
-
         const reader = new FileReader();
-
 
         reader.onload = function (event) {
 
             avatarPreview.src = event.target.result;
-
             avatarPreview.classList.remove("hidden");
-
 
             if (avatarPlaceholder) {
                 avatarPlaceholder.classList.add("hidden");
             }
 
         };
-
 
         reader.readAsDataURL(file);
 
@@ -213,4 +200,3 @@
 </script>
 
 {% endblock %}
-

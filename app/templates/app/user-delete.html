@@ -2,19 +2,19 @@
 
 {% block content %}
 
-<div class="w-full min-h-10/12 flex items-center justify-center px-6 py-20">
+<div class="w-full min-h-10/12 flex items-center justify-center px-4 md:px-6 py-10 md:py-20">
 
-    <div class="w-full max-w-150 bg-[#FFFAF4] rounded-3xl p-10 shadow-2xl">
+    <div class="w-full max-w-150 bg-[#FFFAF4] rounded-3xl p-6 md:p-10 shadow-2xl">
 
-        <div class="mb-10">
+        <div class="mb-8 md:mb-10">
 
             <span class="flex items-center gap-2">
-                    <a href="{% url 'profile'%}" class="flex items-center justify-center rounded-full transition-all duration-300 hover:bg-black/10">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
-                          <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5"/>
-                        </svg>
-                    </a>
-                <h1 class="font-['Unbounded'] font-bold text-4xl uppercase text-[#101010]">
+                <a href="{% url 'profile' request.user.profile.pk%}" class="flex items-center justify-center rounded-full transition-all duration-300 hover:bg-black/10">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5"/>
+                    </svg>
+                </a>
+                <h1 class="font-['Unbounded'] font-bold text-2xl md:text-4xl uppercase text-[#101010]">
                     Delete User
                 </h1>
             </span>
@@ -28,7 +28,7 @@
             {% csrf_token %}
             <button
                 type="submit"
-                class="w-full mt-2 px-6 py-4 rounded-xl bg-[#DDF918] border-2 border-[#101010] font-['Unbounded'] font-bold text-lg text-[#101010] transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0_#101010]"
+                class="w-full mt-2 px-6 py-4 rounded-xl bg-[#DDF918] border-2 border-[#101010] font-['Unbounded'] font-bold text-base md:text-lg text-[#101010] transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0_#101010]"
             >
                 Delete
             </button>

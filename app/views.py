@@ -175,11 +175,8 @@ class ProfileView(LoginRequiredMixin, DetailView):
     model = Profile
     template_name = "app/profile.html"
 
-
-
 class ProfileUpdateView(LoginRequiredMixin, View):
     template_name = "app/profile-edit.html"
-    success_url = reverse_lazy("profile")
 
     def get(self, request):
         profile = request.user.profile
@@ -214,7 +211,7 @@ class ProfileUpdateView(LoginRequiredMixin, View):
             profile_form.save()
             user_form.save()
 
-            return redirect(self.success_url)
+            return redirect("profile", pk=profile.pk)
 
         return render(
             request,

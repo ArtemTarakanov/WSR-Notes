@@ -1,41 +1,49 @@
 {% extends "app/base.html" %}
 
 {% block content %}
-        <a href="{% url 'article' %}" class="fixed top-40 left-8 text-white flex items-center justify-center rounded-full transition-all duration-300 p-2 hover:bg-[#DDF918] hover:text-black transition-all duration-300 hover:-translate-y-[0.5px]">
-        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg>
+        <a href="{% url 'article' %}" class="hidden md:flex fixed top-40 left-8 text-white items-center justify-center rounded-full transition-all duration-300 p-2 hover:bg-[#DDF918] hover:text-black hover:-translate-y-[0.5px]">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/></svg>
         </a>
-        <div class="w-full flex flex-col gap-15 items-center justify-center px-25 min-h-10/12">
-            <div class="flex items-center justify-center w-full gap-100">
-                <h1 class="font-['Unbounded'] font-bold text-5xl uppercase text-[#FFFAF4]">{{article.title}}</h1>
 
-                <div class="flex flex-col gap-1.5">
-                <a href="{% url 'profile' article.author.profile.pk %}" class="font-['Inter'] text-base leading-7 text-[#F8F1EA] max-w-120 transition-transform duration-500 group-hover:translate-x-2">
-                    Author: {{article.author}}
-                </a>
-                <p class="border-t border-t-gray-500 pt-2  font-['Inter'] font-normal text-base leading-7 text-[#F8F1EA] ">
-                    {{ article.text }}
-                </p>
+        <div class="w-full flex flex-col gap-10 md:gap-15 items-center justify-center px-5 md:px-25 py-10 md:py-0 min-h-10/12">
+
+            <a href="{% url 'article' %}" class="md:hidden self-start flex items-center gap-2 text-[#FFFAF4] font-['Inter'] text-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5"/>
+                </svg>
+                Back
+            </a>
+
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-center w-full gap-8 md:gap-100">
+                <h1 class="font-['Unbounded'] font-bold text-3xl md:text-5xl uppercase text-[#FFFAF4]">{{article.title}}</h1>
+
+                <div class="flex flex-col gap-1.5 w-full md:w-auto">
+                    <a href="{% url 'profile' article.author.profile.pk %}" class="font-['Inter'] text-base leading-7 text-[#F8F1EA] transition-transform duration-500 group-hover:translate-x-2">
+                        Author: {{article.author}}
+                    </a>
+                    <p class="border-t border-t-gray-500 pt-2 font-['Inter'] font-normal text-base leading-7 text-[#F8F1EA]">
+                        {{ article.text }}
+                    </p>
                 </div>
             </div>
 
             {% if request.user == article.author or can_change_article or can_delete_article %}
-            <div class="flex items-center gap-5">
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 md:gap-5 w-full sm:w-auto">
                 <a
                     href="{% url 'article-update' article.pk %}"
-                    class="min-w-40 flex justify-center items-center text-center mt-2 px-6 py-4 rounded-xl bg-[#DDF918] border-2 border-[#FFFAF4] font-['Unbounded'] font-bold text-lg text-[#101010] transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0_#FFFAF4]"
+                    class="flex justify-center items-center text-center px-6 py-4 rounded-xl bg-[#DDF918] border-2 border-[#FFFAF4] font-['Unbounded'] font-bold text-base md:text-lg text-[#101010] transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0_#FFFAF4]"
                 >
                     Edit
                 </a>
 
                 <a
                     href="{% url 'article-delete' article.pk %}"
-                    class="min-w-40 flex justify-center items-center text-center mt-2 px-6 py-4 rounded-xl bg-[#DDF918] border-2 border-[#FFFAF4] font-['Unbounded'] font-bold text-lg text-[#101010] transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0_#ff0000]"
+                    class="flex justify-center items-center text-center px-6 py-4 rounded-xl bg-[#DDF918] border-2 border-[#FFFAF4] font-['Unbounded'] font-bold text-base md:text-lg text-[#101010] transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0_#ff0000]"
                 >
                     Delete
                 </a>
             </div>
             {%endif%}
         </div>
-
 
 {% endblock %}

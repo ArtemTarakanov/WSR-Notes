@@ -2,13 +2,13 @@
 
 {% block content %}
 
-<div class="w-full min-h-10/12 px-6 md:px-15 lg:px-25 py-20">
+<div class="w-full min-h-10/12 px-5 md:px-15 lg:px-25 py-10 md:py-20">
 
     <div class="w-full max-w-400 mx-auto">
 
-        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-10">
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8 md:gap-10">
 
-            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-8">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6 md:gap-8">
 
                 <div class="shrink-0">
 
@@ -17,15 +17,15 @@
                         <img
                             src="{{ profile.avatar.url }}"
                             alt="{{ profile.user.username }}"
-                            class="w-40 h-40 md:w-52 md:h-52 object-cover rounded-full border-4 border-[#FFFAF4]"
+                            class="w-28 h-28 md:w-40 md:h-40 lg:w-52 lg:h-52 object-cover rounded-full border-4 border-[#FFFAF4]"
                         >
 
                     {% else %}
 
                         <div
-                            class="w-40 h-40 md:w-52 md:h-52 flex items-center justify-center rounded-full bg-[#DDF918] border-4 border-[#FFFAF4]"
+                            class="w-28 h-28 md:w-40 md:h-40 lg:w-52 lg:h-52 flex items-center justify-center rounded-full bg-[#DDF918] border-4 border-[#FFFAF4]"
                         >
-                            <span class="font-['Unbounded'] font-bold text-5xl text-[#101010]">
+                            <span class="font-['Unbounded'] font-bold text-3xl md:text-5xl text-[#101010]">
                                 {{ profile.user.username|first|upper }}
                             </span>
                         </div>
@@ -34,14 +34,13 @@
 
                 </div>
 
-
-                <div class="flex flex-col gap-4">
+                <div class="flex flex-col gap-3 md:gap-4">
 
                     <span class="font-['Inter'] text-sm uppercase tracking-[0.2em] text-[#DDF918]">
                         {{ profile.user.email }}
                     </span>
 
-                    <h1 class="font-['Unbounded'] font-bold text-4xl md:text-6xl uppercase text-[#FFFAF4]">
+                    <h1 class="font-['Unbounded'] font-bold text-3xl md:text-4xl lg:text-6xl uppercase text-[#FFFAF4]">
                         {{ profile.user.username }}
                     </h1>
 
@@ -63,21 +62,20 @@
 
             </div>
 
-
-            <div class="flex items-center gap-4">
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 md:gap-4">
 
                 {% if request.user == profile.user %}
 
                     <a
                         href="{% url 'profile-edit' %}"
-                        class="min-w-40 flex justify-center items-center px-6 py-4 rounded-xl bg-[#DDF918] border-2 border-[#FFFAF4] font-['Unbounded'] font-bold text-base text-[#101010] transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0_#FFFAF4]"
+                        class="flex justify-center items-center px-6 py-4 rounded-xl bg-[#DDF918] border-2 border-[#FFFAF4] font-['Unbounded'] font-bold text-base text-[#101010] transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0_#FFFAF4]"
                     >
                         Edit Profile
                     </a>
 
                     <a
                         href="{% url 'logout' %}"
-                        class="min-w-32 flex justify-center items-center px-6 py-4 rounded-xl border-2 border-[#555555] font-['Unbounded'] font-bold text-base text-[#FFFAF4] transition-all duration-300 hover:-translate-y-1 hover:border-[#DDF918] hover:text-[#DDF918]"
+                        class="flex justify-center items-center px-6 py-4 rounded-xl border-2 border-[#555555] font-['Unbounded'] font-bold text-base text-[#FFFAF4] transition-all duration-300 hover:-translate-y-1 hover:border-[#DDF918] hover:text-[#DDF918]"
                     >
                         Logout
                     </a>
@@ -88,16 +86,13 @@
 
         </div>
 
+        <div class="w-full border-t border-[#333333] my-10 md:my-16"></div>
 
-        <div class="w-full border-t border-[#333333] my-16"></div>
+        <div class="p-5 md:p-6 rounded-2xl border border-[#333333] bg-[#151515]">
 
-
-        <div class="p-6 rounded-2xl border border-[#333333] bg-[#151515]">
-
-            <p class="font-['Inter'] text-xl uppercase tracking-wider text-[#777777]">
+            <p class="font-['Inter'] text-lg md:text-xl uppercase tracking-wider text-[#777777]">
                 Articles
             </p>
-
 
             <div class="mt-5 flex flex-col gap-3">
 
@@ -105,7 +100,7 @@
 
                     <a
                         href="{% url 'article_detail' article.pk %}"
-                        class="w-fit group flex items-center justify-between py-3 px-4 rounded-xl border border-[#333333] transition-all duration-300 hover:border-[#DDF918] hover:bg-[#1D1D1D]"
+                        class="w-full sm:w-fit group flex items-center justify-between py-3 px-4 rounded-xl border border-[#333333] transition-all duration-300 hover:border-[#DDF918] hover:bg-[#1D1D1D]"
                     >
 
                         <span class="font-['Inter'] text-base text-[#FFFAF4]">

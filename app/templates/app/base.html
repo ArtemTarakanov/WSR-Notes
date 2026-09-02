@@ -3,16 +3,13 @@
 <html class="scrollbar-none">
     <head>
         <link rel="stylesheet" href="{% static 'app/css/output.css' %}">
-
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400..800&display=swap"
-            rel="stylesheet"
-        >
+        <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400..800&display=swap" rel="stylesheet">
         <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..800&display=swap" rel="stylesheet">
@@ -21,64 +18,144 @@
         <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     </head>
 
-    <body class="bg-[#101010] px-3 py-3">
+    <body class="bg-[#101010] px-1 py-3">
 
-        <header class="sticky top-0 z-50 w-full bg-[#FFFAF4] flex items-stretch justify-between px-15 rounded-3xl">
+        <header class="sticky top-0 z-50 w-full bg-[#FFFAF4] rounded-3xl">
 
-            <div class="px-15 flex items-center">
-                <img
-                    src="{% static 'app/images/logo.svg' %}"
-                    alt="Logo"
+            <div class="flex items-stretch justify-between px-5 md:px-15">
+
+                <div class="flex items-center py-2 md:py-0">
+                    <img
+                        src="{% static 'app/images/logo.svg' %}"
+                        alt="Logo"
+                    >
+                </div>
+
+                <nav class="hidden md:flex items-stretch gap-5">
+
+                    {% if request.path == "/" %}
+                    <a href="{% url 'home' %}" class="px-6 py-6.5 flex items-center font-['Unbounded'] font-bold text-md text-[#101010] transition-all duration-300 bg-linear-to-b from-[#DDF918] to-[#DDF91800] border-t-4 border-t-black">Home</a>
+                    {% else %}
+                    <a href="{% url 'home' %}" class="px-6 py-6.5 flex items-center font-['Unbounded'] font-bold text-md text-[#101010]">Home</a>
+                    {% endif %}
+
+                    {% if request.path == "/articles/" %}
+                    <a href="{% url 'article' %}" class="px-6 py-6.5 flex items-center font-['Unbounded'] font-bold text-md text-[#101010] transition-transform duration-600 bg-linear-to-b from-[#DDF918] to-[#DDF91800] border-t-4 border-t-black">Articles</a>
+                    {% else %}
+                    <a href="{% url 'article' %}" class="px-6 py-6.5 flex items-center font-['Unbounded'] font-bold text-md text-[#101010]">Articles</a>
+                    {% endif %}
+
+                    {% if request.path == "/about/" %}
+                    <a href="{% url 'about' %}" class="px-6 py-6.5 flex items-center font-['Unbounded'] font-bold text-md text-[#101010] transition-all duration-300 bg-linear-to-b from-[#DDF918] to-[#DDF91800] border-t-4 border-t-black">About</a>
+                    {% else %}
+                    <a href="{% url 'about' %}" class="px-6 py-6.5 flex items-center font-['Unbounded'] font-bold text-md text-[#101010]">About</a>
+                    {% endif %}
+
+                </nav>
+
+                <div class="hidden md:flex items-stretch gap-5">
+                    {% if request.user.is_authenticated %}
+                    <div class="flex items-center gap-2">
+                        <p class="px-2.5 py-4 flex items-center font-['Unbounded'] font-bold text-md text-[#101010]">{{request.user.username}}</p>
+                        <span class="bg-black min-w-[1.5px] h-[60%]"></span>
+                        <a href="{% url 'profile' request.user.profile.pk %}" class="px-3 py-2.5 rounded-xl bg-[#DDF918] border-2 border-[#FFFAF4] font-['Unbounded'] font-bold text-sm text-[#101010] transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0_#FFFAF4]">Profile</a>
+                    </div>
+                    {% else %}
+                    <div class="flex items-center gap-2">
+                        <a href="{% url 'login' %}" class="px-3 py-2.5 rounded-xl bg-[#DDF918] border-2 border-[#FFFAF4] font-['Unbounded'] font-bold text-sm text-[#101010] transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0_#FFFAF4]">Login</a>
+                        <a href="{% url 'register' %}" class="px-3 py-2.5 rounded-xl border font-['Unbounded'] font-bold text-sm transition-all duration-300 hover:bg-[#FFFAF4] hover:text-[#101010] hover:-translate-y-1 hover:shadow-[6px_6px_0_#FFFAF4]">Registration</a>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <button
+                    id="burger-btn"
+                    class="md:hidden flex flex-col justify-center items-center gap-1.5 w-8 h-8 my-auto rounded-lg focus:outline-none"
+                    aria-label="Toggle menu"
+                    aria-expanded="false"
                 >
+                    <span id="burger-line-1" class="block w-5 h-0.5 bg-[#101010] transition-all duration-300 origin-center"></span>
+                    <span id="burger-line-2" class="block w-5 h-0.5 bg-[#101010] transition-all duration-300"></span>
+                    <span id="burger-line-3" class="block w-5 h-0.5 bg-[#101010] transition-all duration-300 origin-center"></span>
+                </button>
+
             </div>
 
-            <nav class="flex items-stretch gap-5">
+            <div
+                id="mobile-menu"
+                class="hidden md:hidden flex-col border-t border-[#101010]/10 px-5 pb-4"
+            >
+                <nav class="flex flex-col">
+                    {% if request.path == "/" %}
+                    <a href="{% url 'home' %}" class="py-3 border-b border-[#101010]/10 font-['Unbounded'] font-bold text-sm text-[#101010] bg-linear-to-r from-[#DDF918] to-[#DDF91800] pl-3 border-l-4 border-l-black">Home</a>
+                    {% else %}
+                    <a href="{% url 'home' %}" class="py-3 border-b border-[#101010]/10 font-['Unbounded'] font-bold text-sm text-[#101010]">Home</a>
+                    {% endif %}
 
-                {% if request.path == "/" %}
-                <a href="{% url 'home' %}" class="px-6 py-6.5 flex items-center font-['Unbounded'] font-bold text-md text-[#101010] transition-all duration-300 bg-linear-to-b from-[#DDF918] to-[#DDF91800] border-t-4 border-t-black">Home</a>
-                {% else %}
-                <a href="{% url 'home' %}" class="px-6 py-6.5 flex items-center font-['Unbounded'] font-bold text-md text-[#101010] ">Home</a>
-                {% endif %}
+                    {% if request.path == "/articles/" %}
+                    <a href="{% url 'article' %}" class="py-3 border-b border-[#101010]/10 font-['Unbounded'] font-bold text-sm text-[#101010] bg-linear-to-r from-[#DDF918] to-[#DDF91800] pl-3 border-l-4 border-l-black">Articles</a>
+                    {% else %}
+                    <a href="{% url 'article' %}" class="py-3 border-b border-[#101010]/10 font-['Unbounded'] font-bold text-sm text-[#101010]">Articles</a>
+                    {% endif %}
 
-                {% if request.path == "/articles/" %}
-                <a href="{% url 'article' %}" class="px-6 py-6.5 flex items-center font-['Unbounded'] font-bold text-md text-[#101010] transition-transform duration-600 bg-linear-to-b from-[#DDF918] to-[#DDF91800] border-t-4 border-t-black">Articles</a>
-                {% else %}
-                <a href="{% url 'article' %}" class="px-6 py-6.5 flex items-center font-['Unbounded'] font-bold text-md text-[#101010] ">Articles</a>
-                {% endif %}
+                    {% if request.path == "/about/" %}
+                    <a href="{% url 'about' %}" class="py-3 border-b border-[#101010]/10 font-['Unbounded'] font-bold text-sm text-[#101010] bg-linear-to-r from-[#DDF918] to-[#DDF91800] pl-3 border-l-4 border-l-black">About</a>
+                    {% else %}
+                    <a href="{% url 'about' %}" class="py-3 border-b border-[#101010]/10 font-['Unbounded'] font-bold text-sm text-[#101010]">About</a>
+                    {% endif %}
+                </nav>
 
-                {% if request.path == "/about/" %}
-                <a href="{% url 'about' %}" class="px-6 py-6.5 flex items-center font-['Unbounded'] font-bold text-md text-[#101010] transition-all duration-300 bg-linear-to-b from-[#DDF918] to-[#DDF91800] border-t-4 border-t-black">About</a>
-                {% else %}
-                <a href="{% url 'about' %}" class="px-6 py-6.5 flex items-center font-['Unbounded'] font-bold text-md text-[#101010] ">About</a>
-                {% endif %}
-
-
-
-            </nav>
-
-            <div class="flex items-stretch gap-5">
-                {% if request.user.is_authenticated %}
-
-                <div class="flex items-center gap-2">
-
-                <p class="px-2.5 py-6.5 flex items-center font-['Unbounded'] font-bold text-md text-[#101010]">{{request.user.username}}</p>
-
-                <span class="bg-black min-w-[1.5px] h-[60%]"></span>
-
-                <a href="{% url 'profile' request.user.profile.pk %}" class="px-4 py-4 rounded-xl bg-[#DDF918] border-2 border-[#FFFAF4] font-['Unbounded'] font-bold text-sm text-[#101010] transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0_#FFFAF4]">Profile</a>
+                <div class="flex flex-col gap-3 mt-3">
+                    {% if request.user.is_authenticated %}
+                    <p class="font-['Unbounded'] font-bold text-sm text-[#101010]">{{request.user.username}}</p>
+                    <a href="{% url 'profile' request.user.profile.pk %}" class="text-center px-4 py-2.5 rounded-xl bg-[#DDF918] border-2 border-[#101010] font-['Unbounded'] font-bold text-sm text-[#101010]">Profile</a>
+                    {% else %}
+                    <a href="{% url 'login' %}" class="text-center px-4 py-2.5 rounded-xl bg-[#DDF918] border-2 border-[#101010] font-['Unbounded'] font-bold text-sm text-[#101010]">Login</a>
+                    <a href="{% url 'register' %}" class="text-center px-4 py-2.5 rounded-xl border border-[#101010] font-['Unbounded'] font-bold text-sm text-[#101010]">Registration</a>
+                    {% endif %}
                 </div>
-
-                {%else%}
-                <div class="flex items-center gap-2">
-                    <a href="{% url 'login' %}" class="px-4 py-4 rounded-xl bg-[#DDF918] border-2 border-[#FFFAF4] font-['Unbounded'] font-bold text-sm text-[#101010] transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0_#FFFAF4]">Login</a>
-                    <a href="{% url 'register' %}" class="px-4 py-4 rounded-xl border font-['Unbounded'] font-bold text-sm  transition-all duration-300 hover:bg-[#FFFAF4] hover:text-[#101010] hover:-translate-y-1 hover:shadow-[6px_6px_0_#FFFAF4]">
-                        Registration
-                    </a>
-                </div>
-                {%endif%}
             </div>
 
         </header>
+
+        <script>
+            const burgerBtn = document.getElementById('burger-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const line1 = document.getElementById('burger-line-1');
+            const line2 = document.getElementById('burger-line-2');
+            const line3 = document.getElementById('burger-line-3');
+
+            burgerBtn.addEventListener('click', () => {
+                const isOpen = !mobileMenu.classList.contains('hidden');
+
+                if (isOpen) {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenu.classList.remove('flex');
+                    burgerBtn.setAttribute('aria-expanded', 'false');
+                    line1.classList.remove('rotate-45', 'translate-y-2');
+                    line2.classList.remove('opacity-0');
+                    line3.classList.remove('-rotate-45', '-translate-y-2');
+                } else {
+                    mobileMenu.classList.remove('hidden');
+                    mobileMenu.classList.add('flex');
+                    burgerBtn.setAttribute('aria-expanded', 'true');
+                    line1.classList.add('rotate-45', 'translate-y-2');
+                    line2.classList.add('opacity-0');
+                    line3.classList.add('-rotate-45', '-translate-y-2');
+                }
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!burgerBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenu.classList.remove('flex');
+                    burgerBtn.setAttribute('aria-expanded', 'false');
+                    line1.classList.remove('rotate-45', 'translate-y-2');
+                    line2.classList.remove('opacity-0');
+                    line3.classList.remove('-rotate-45', '-translate-y-2');
+                }
+            });
+        </script>
         {% block content %}
         <div class="w-full flex items-center justify-center px-25 min-h-screen">
             <div class="flex items-center justify-center w-full gap-100">

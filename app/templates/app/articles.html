@@ -2,18 +2,18 @@
 
 {% block content %}
 
-<div class="w-full min-h-10/12 px-6 md:px-15 lg:px-25 py-20">
+<div class="w-full min-h-10/12 px-5 md:px-15 lg:px-25 py-10 md:py-20">
 
     <div class="w-full max-w-400 mx-auto">
 
-        <div class="flex items-center justify-between">
-            <div class="flex flex-col gap-4 mb-16">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-10 md:mb-16">
+            <div class="flex flex-col gap-4">
 
                 <span class="font-['Inter'] text-sm uppercase tracking-[0.2em] text-[#DDF918]">
                     Collection
                 </span>
 
-                <h1 class="font-['Unbounded'] font-bold text-5xl md:text-7xl uppercase text-[#FFFAF4]">
+                <h1 class="font-['Unbounded'] font-bold text-4xl md:text-5xl lg:text-7xl uppercase text-[#FFFAF4]">
                     Articles
                 </h1>
 
@@ -24,26 +24,25 @@
             </div>
 
             {%if request.user.is_authenticated%}
-            <div>
-                    <a
-                        href="{% url 'article-create' %}"
-                        class="min-w-40 flex justify-center items-center text-center mt-2 px-6 py-4 rounded-xl bg-[#DDF918] border-2 border-[#FFFAF4] font-['Unbounded'] font-bold text-lg text-[#101010] transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0_#FFFAF4]"
-                    >
-                        Add
-                    </a>
+            <div class="shrink-0">
+                <a
+                    href="{% url 'article-create' %}"
+                    class="min-w-40 flex justify-center items-center text-center px-6 py-4 rounded-xl bg-[#DDF918] border-2 border-[#FFFAF4] font-['Unbounded'] font-bold text-lg text-[#101010] transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0_#FFFAF4]"
+                >
+                    Add
+                </a>
             </div>
             {%endif%}
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
 
             {% for article in object_list %}
 
                 <a
                     href="{% url 'article_detail' article.pk %}"
-                    class="group relative min-h-70 p-8 rounded-3xl bg-[#FFFAF4] flex flex-col justify-between overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-[10px_10px_0_#DDF918]"
+                    class="group relative min-h-50 md:min-h-70 p-6 md:p-8 rounded-3xl bg-[#FFFAF4] flex flex-col justify-between overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-[10px_10px_0_#DDF918]"
                 >
-
 
                     <div class="flex items-center justify-between">
 
@@ -57,20 +56,16 @@
 
                     </div>
 
-
-
                     <div>
                         <div class="flex flex-col justify-center gap-1.5">
-                            <h2 class="font-['Unbounded'] font-bold text-3xl md:text-4xl uppercase leading-tight text-[#101010] transition-transform duration-500 group-hover:translate-x-2">
+                            <h2 class="font-['Unbounded'] font-bold text-2xl md:text-3xl lg:text-4xl uppercase leading-tight text-[#101010] transition-transform duration-500 group-hover:translate-x-2">
                                 {{ article.title }}
                             </h2>
-                            <p class="font-['Inter'] text-base leading-7 text-[#888888] max-w-120 transition-transform duration-500 group-hover:translate-x-2">
+                            <p class="font-['Inter'] text-base leading-7 text-[#888888] transition-transform duration-500 group-hover:translate-x-2">
                                 Author: {{article.author}}
                             </p>
                         </div>
                     </div>
-
-
 
                     <div class="absolute bottom-0 left-0 w-full h-1 bg-[#101010] origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100">
                     </div>
@@ -81,7 +76,7 @@
 
                 <div class="col-span-full py-20 flex flex-col items-center justify-center">
 
-                    <h2 class="font-['Unbounded'] font-bold text-4xl uppercase text-[#FFFAF4]">
+                    <h2 class="font-['Unbounded'] font-bold text-3xl md:text-4xl uppercase text-[#FFFAF4]">
                         No articles
                     </h2>
 

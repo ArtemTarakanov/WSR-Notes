@@ -1,11 +1,78 @@
 {%extends 'app/base.html' %}
 {%block content%}
-        <div class="w-full flex items-center justify-center px-25 min-h-screen">
-            <div class="flex items-center justify-center w-full gap-100">
-                <h1 class="font-['Unbounded'] font-bold text-5xl uppercase text-[#FFFAF4]">{{page_title}}</h1>
-                <p class="border-t border-t-gray-500 pt-2  font-['Inter'] font-normal text-base leading-7 text-[#F8F1EA] max-w-80">
-                    {{ page_description }}</p>
+<div class="w-full flex justify-center px-5 md:px-25 py-12 md:py-20 min-h-screen">
+    <div class="w-full max-w-3xl flex flex-col gap-8">
+
+        <h1 class="font-['Unbounded'] font-bold text-3xl md:text-5xl uppercase text-[#FFFAF4]">About</h1>
+
+        <div class="flex flex-col gap-6 border-t border-[#333333] pt-8">
+
+            <h2 class="font-['Unbounded'] font-bold text-xl md:text-2xl text-[#DDF918]">
+                Первый полноценный проект
+            </h2>
+
+            <p class="font-['Inter'] text-base leading-7 text-[#B8B8B8]">
+                Этот проект — мой первый полноценный pet-проект на <span class="text-[#FFFAF4] font-semibold">Django</span>, созданный в рамках моего обучения Fullstack-разработке.
+            </p>
+
+            <p class="font-['Inter'] text-base leading-7 text-[#B8B8B8]">
+                Здесь я не просто изучал отдельные возможности Django, а постепенно собирал из них настоящее небольшое веб-приложение.
+            </p>
+
+            <div class="flex flex-col gap-3">
+                <p class="font-['Inter'] text-base text-[#FFFAF4] font-semibold">В проекте реализованы:</p>
+                <ul class="flex flex-col gap-2">
+                    <li class="flex items-start gap-3 font-['Inter'] text-base leading-7 text-[#B8B8B8]">
+                        <span class="text-[#DDF918] mt-1 shrink-0">•</span>регистрация и авторизация пользователей;
+                    </li>
+                    <li class="flex items-start gap-3 font-['Inter'] text-base leading-7 text-[#B8B8B8]">
+                        <span class="text-[#DDF918] mt-1 shrink-0">•</span>создание, редактирование и удаление статей;
+                    </li>
+                    <li class="flex items-start gap-3 font-['Inter'] text-base leading-7 text-[#B8B8B8]">
+                        <span class="text-[#DDF918] mt-1 shrink-0">•</span>система владельцев статей;
+                    </li>
+                    <li class="flex items-start gap-3 font-['Inter'] text-base leading-7 text-[#B8B8B8]">
+                        <span class="text-[#DDF918] mt-1 shrink-0">•</span>проверка прав доступа;
+                    </li>
+                    <li class="flex items-start gap-3 font-['Inter'] text-base leading-7 text-[#B8B8B8]">
+                        <span class="text-[#DDF918] mt-1 shrink-0">•</span>профиль пользователя;
+                    </li>
+                    <li class="flex items-start gap-3 font-['Inter'] text-base leading-7 text-[#B8B8B8]">
+                        <span class="text-[#DDF918] mt-1 shrink-0">•</span>редактирование имени, email, аватара и информации о себе;
+                    </li>
+                    <li class="flex items-start gap-3 font-['Inter'] text-base leading-7 text-[#B8B8B8]">
+                        <span class="text-[#DDF918] mt-1 shrink-0">•</span>удаление аккаунта;
+                    </li>
+                    <li class="flex items-start gap-3 font-['Inter'] text-base leading-7 text-[#B8B8B8]">
+                        <span class="text-[#DDF918] mt-1 shrink-0">•</span>работа с формами и валидацией;
+                    </li>
+                    <li class="flex items-start gap-3 font-['Inter'] text-base leading-7 text-[#B8B8B8]">
+                        <span class="text-[#DDF918] mt-1 shrink-0">•</span>подключение PostgreSQL;
+                    </li>
+                    <li class="flex items-start gap-3 font-['Inter'] text-base leading-7 text-[#B8B8B8]">
+                        <span class="text-[#DDF918] mt-1 shrink-0">•</span>адаптивный интерфейс с Tailwind CSS.
+                    </li>
+                </ul>
             </div>
 
+            <p class="font-['Inter'] text-base leading-7 text-[#B8B8B8]">
+                Главная цель проекта — не создать сложный продукт, а <span class="text-[#FFFAF4] font-semibold">понять, как отдельные части backend-приложения работают вместе</span>.
+            </p>
+
+            <p class="font-['Inter'] text-base leading-7 text-[#B8B8B8]">
+                Во время разработки я изучаю архитектуру Django, работу с моделями и ORM, аутентификацию и авторизацию, permissions, формы, CBV, связи между моделями и взаимодействие пользователя с backend.
+            </p>
+
+            <p class="font-['Inter'] text-base leading-7 text-[#B8B8B8]">
+                Это первый проект такого уровня в моём обучении, поэтому он является важной точкой перехода от изучения отдельных технологий к созданию полноценных приложений.
+            </p>
+
+            <p class="font-['Inter'] text-base leading-7 text-[#FFFAF4] font-semibold border-l-4 border-l-[#DDF918] pl-4">
+                Проект продолжает развиваться вместе с моими знаниями.
+            </p>
+
         </div>
+
+    </div>
+</div>
 {%endblock%}
